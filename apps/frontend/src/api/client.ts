@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const apiClient = axios.create({
-  baseURL: "http://localhost:5002/",
+  baseURL: "https://shpontak.tplinkdns.com/5002/",
   headers: {
     "Content-Type": "application/json",
   },

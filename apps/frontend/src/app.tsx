@@ -4,12 +4,12 @@ function App() {
   const { refetch } = useDummy();
 
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
+    <div className="h-screen w-full flex flex-col items-center justify-center">
+      <h1 className="text-xl font-medium">Velo Life</h1>
+      <div>
         <button onClick={() => refetch()}>Send Dummy Request</button>
       </div>
-    </>
+    </div>
   );
 }
 
