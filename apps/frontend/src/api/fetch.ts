@@ -5,6 +5,6 @@ export const fetcher = async <T>(
   url: string,
   config?: AxiosRequestConfig
 ): Promise<T> => {
-  const response = await apiClient.get<T>(url, config);
+  const response = await apiClient.request<T>({ url, ...config });
   return response.data;
 };
