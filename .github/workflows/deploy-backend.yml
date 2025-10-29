@@ -30,7 +30,7 @@ jobs:
       - name: Build backend
         run: |
           cd apps/backend
-          pnpm --filter backend build
+          npx nest build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
