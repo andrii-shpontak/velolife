@@ -24,6 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        working-directory: ./
 
       - name: Build backend
         run: pnpm --filter backend build
@@ -38,7 +39,8 @@ jobs:
       - name: Deploy to Elastic Beanstalk
         run: |
           cd apps/backend
-          zip -r ../backend.zip .
+          zip -r backend.zip .
+          aws s3 cp backend.zip s3://elasticbeanstalk-eu-north-1-274979550084/backend/github-${{ github.sha }}.zip
           aws elasticbeanstalk create-application-version \
             --application-name velo-life-backend \
             --version-label github-${{ github.sha }} \
