@@ -22,11 +22,15 @@ jobs:
         with:
           version: 8
 
-      - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+      - name: Install dependencies (prod only)
+        run: |
+          cd apps/backend
+          pnpm install --prod
 
       - name: Build backend
-        run: pnpm --filter backend build
+        run: |
+          cd apps/backend
+          pnpm --filter backend build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -35,10 +39,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-north-1
 
+      - name: Prepare deployment package
+        run: |
+          cd apps/backend
+          zip -r backend.zip dist package.json package-lock.json node_modules
+
       - name: Deploy to Elastic Beanstalk
         run: |
           cd apps/backend
-          zip -r backend.zip .
           aws s3 cp backend.zip s3://elasticbeanstalk-eu-north-1-274979550084/backend/github-${{ github.sha }}.zip
           aws elasticbeanstalk create-application-version \
             --application-name velo-life-backend \
