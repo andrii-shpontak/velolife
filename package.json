@@ -7,7 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:backend": "pnpm --filter backend run start:dev",
     "dev:frontend": "pnpm --filter frontend dev",
-    "dev": "concurrently \"pnpm run dev:backend\" \"pnpm run dev:frontend\""
+    "dev": "concurrently \"pnpm run dev:backend\" \"pnpm run dev:frontend\"",
+    "build:backend": "pnpm --filter backend build",
+    "build:frontend": "pnpm --filter frontend build",
+    "deploy:backend": "zip -r backend-deploy.zip apps/backend/* apps/backend/.ebextensions && aws elasticbeanstalk create-application-version ...",
+    "deploy:frontend": "aws s3 sync apps/frontend/dist s3://my-frontend-bucket --delete && aws cloudfront create-invalidation ..."
   },
   "keywords": [],
   "author": "",
