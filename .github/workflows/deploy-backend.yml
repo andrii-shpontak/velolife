@@ -42,7 +42,7 @@ jobs:
       - name: Prepare deployment package
         run: |
           cd apps/backend
-          zip -r backend.zip dist package.json pnpm-lock.yaml
+          zip -r backend.zip dist package.json pnpm-lock.yaml .ebextensions
 
       - name: Deploy to Elastic Beanstalk
         run: |
